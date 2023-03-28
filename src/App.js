@@ -29,6 +29,12 @@ function App() {
       setTurns(0)
   }
 
+  const resetTurn = () => {
+    setChoiceOne(null)
+    setChoiceTwo(null)
+    setTurns(prevTurns => prevTurns + 1)
+    setDisabled(false)
+  }
   
   useEffect(() => {
     shuffleCards()
