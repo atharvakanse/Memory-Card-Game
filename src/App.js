@@ -17,31 +17,9 @@ function App() {
   const[choiceOne, setChoiceOne] = useState(null)
   const[choiceTwo, setChoiceTwo] = useState(null)
   const[disabled, setDisabled] = useState(false)
-
-  useEffect(() => {
-    shuffleCards()
-  }, [])
+ 
   
-  return (
-    <div className="App">
-      <h1>Magic Match</h1>
-      <button onClick={shuffleCards}>New Game</button>
-  
-      <div className="card-grid">
-        {cards.map(card =>(
-          <SingleCard 
-          key={card.id} 
-          card={card} 
-          handleChoice={handleChoice} 
-          flipped={card === choiceOne || card === choiceTwo || card.matched} 
-          disabled={disabled}
-          />
-         ))}
-      </div>
-      <p>Turns: {turns} </p>
-    </div>
-  );
-
+    //shuffle cards
     const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)  
@@ -52,11 +30,11 @@ function App() {
       setCards(shuffledCards)
       setTurns(0)
   }
-  
+      // handle a choice
   const handleChoice = (card) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
   }
-  
+    // compare 2 selected cards
   useEffect(() => {
     if(choiceOne && choiceTwo) {
       setDisabled(true)
@@ -80,6 +58,7 @@ function App() {
 
   console.log(cards)
 
+     //reset choices & increase turns
   const resetTurn = () => {
     setChoiceOne(null)
     setChoiceTwo(null)
@@ -87,6 +66,7 @@ function App() {
     setDisabled(false)
   }
   
+  // start a new game automatically
   useEffect(() => {
     shuffleCards()
   }, [])
@@ -110,7 +90,6 @@ function App() {
       <p>Turns: {turns} </p>
     </div>
   );
-
 }
 
 export default App
